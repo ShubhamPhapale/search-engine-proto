@@ -1,6 +1,14 @@
 # PySearch - A Google-like Search Engine in Python
 
+[![CI/CD Pipeline](https://github.com/yourusername/pysearch/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/pysearch/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/)
+[![Flask](https://img.shields.io/badge/flask-3.1+-green.svg)](https://flask.palletsprojects.com/)
+
 A fully functional search engine built in Python that mimics Google's core functionality including web crawling, indexing, ranking, and a web interface.
+
+🔍 **[Live Demo](http://your-demo-url.com)** | 📖 **[Documentation](#documentation)** | 🐳 **[Docker Hub](https://hub.docker.com/r/yourusername/pysearch)**
 
 ## Features
 
