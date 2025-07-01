@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PySearch - Python Search Engine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            color: #4285f4;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            overflow: hidden;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-button {
+            padding: 15px 25px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #3367d6;
+        }
+        
+        .results-info {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .result {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s;
+        }
+        
+        .result:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .result-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .result-title a {
+            color: #1a0dab;
+            text-decoration: none;
+        }
+        
+        .result-title a:hover {
+            text-decoration: underline;
+        }
+        
+        .result-url {
+            color: #006621;
+            font-size: 14px;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        
+        .result-snippet {
+            color: #545454;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .result-score {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: #4285f4;
+            border-radius: 4px;
+        }
+        
+        .pagination .current {
+            background-color: #4285f4;
+            color: white;
+        }
+        
+        .pagination a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .suggestions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .suggestions h3 {
+            margin-bottom: 10px;
+            color: #856404;
+        }
+        
+        .suggestion-link {
+            color: #4285f4;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        
+        .suggestion-link:hover {
+            text-decoration: underline;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: #666;
+            margin-top: 50px;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 8px;
+            }
+            
+            .search-input, .search-button {
+                border-radius: 0;
+            }
+            
+            .search-button {
+                border-radius: 0 0 8px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">PySearch</div>
+            <form method="GET" action="/search">
+                <div class="search-box">
+                    <input type="text" class="search-input" name="q" 
+                           value="{{ query if query else '' }}" 
+                           placeholder="Search the web..." autofocus>
+                    <button type="submit" class="search-button">Search</button>
+                </div>
+            </form>
+        </div>
+        
+        {% if query %}
+            {% if suggestions %}
+                <div class="suggestions">
+                    <h3>Did you mean:</h3>
+                    {% for suggestion in suggestions %}
+                        <a href="/search?q={{ suggestion }}" class="suggestion-link">{{ suggestion }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% if results %}
+                <div class="results-info">
+                    About {{ total_results }} results for "{{ query }}"
+                </div>
+                
+                {% for result in results %}
+                    <div class="result">
+                        <div class="result-title">
+                            <a href="{{ result.url }}" target="_blank">{{ result.title if result.title else result.url }}</a>
+                        </div>
+                        <div class="result-url">{{ result.url }}</div>
+                        <div class="result-snippet">{{ result.content_snippet|safe }}</div>
+                        <div class="result-score">Relevance Score: {{ "%.4f"|format(result.final_score) }}</div>
+                    </div>
+                {% endfor %}
+                
+                {% if total_pages > 1 %}
+                    <div class="pagination">
+                        {% if has_prev %}
+                            <a href="/search?q={{ query }}&page={{ page - 1 }}">&laquo; Previous</a>
+                        {% endif %}
+                        
+                        {% for p in range(1, total_pages + 1) %}
+                            {% if p == page %}
+                                <span class="current">{{ p }}</span>
+                            {% elif p <= 3 or p >= total_pages - 2 or (p >= page - 1 and p <= page + 1) %}
+                                <a href="/search?q={{ query }}&page={{ p }}">{{ p }}</a>
+                            {% elif p == 4 and page > 5 %}
+                                <span>...</span>
+                            {% elif p == total_pages - 3 and page < total_pages - 4 %}
+                                <span>...</span>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if has_next %}
+                            <a href="/search?q={{ query }}&page={{ page + 1 }}">Next &raquo;</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="no-results">
+                    <h2>No results found for "{{ query }}"</h2>
+                    <p>Try different keywords or check the spelling.</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    
+    <script>
+        // Auto-focus search input if no query
+        {% if not query %}
+            document.querySelector('.search-input').focus();
+        {% endif %}
+        
+        // Add highlighting to search results
+        document.addEventListener('DOMContentLoaded', function() {
+            const query = "{{ query if query else '' }}";
+            if (query) {
+                const words = query.toLowerCase().split(' ');
+                const snippets = document.querySelectorAll('.result-snippet');
+                
+                snippets.forEach(snippet => {
+                    let html = snippet.innerHTML;
+                    words.forEach(word => {
+                        if (word.length > 2) {
+                            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+                            html = html.replace(regex, `<span class="highlight">$&</span>`);
+                        }
+                    });
+                    snippet.innerHTML = html;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
