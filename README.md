@@ -8,7 +8,7 @@
 
 A fully functional search engine built in Python that mimics Google's core functionality including web crawling, indexing, ranking, and a web interface.
 
-🔍 **[Live Demo](http://your-demo-url.com)** | 📖 **[Documentation](#documentation)** | 🐳 **[Docker Hub](https://hub.docker.com/r/yourusername/pysearch)**
+🔍 **[Live Demo](https://shubhamphapale.github.io/search-engine-proto/demo.html)** | 📖 **[Full Documentation](#documentation)** | 🚀 **[Deploy Now](#deployment)**
 
 ## Features
 
@@ -196,6 +196,54 @@ CREATE TABLE pages (
 #### Spelling Suggestions
 - Edit distance algorithm to find similar words in vocabulary
 - Suggests alternatives for misspelled query terms
+
+## Deployment
+
+### Quick Deploy to Cloud Platforms
+
+This project includes configurations for one-click deployment to popular cloud platforms:
+
+#### 🚀 **Render (Recommended - Free)**
+1. Fork this repository
+2. Connect your GitHub account to [Render](https://render.com)
+3. Create a new "Web Service" from your forked repository
+4. Render will automatically detect the `render.yaml` configuration
+5. Your search engine will be live with pre-populated data!
+
+#### 🚂 **Railway (Alternative - Free)**
+1. Fork this repository  
+2. Connect your GitHub account to [Railway](https://railway.app)
+3. Deploy from your forked repository
+4. Railway will use the `railway.json` configuration
+
+#### ⚡ **Heroku (Paid)**
+1. Fork this repository
+2. Connect your Heroku account to GitHub
+3. Create a new app and connect it to your forked repository
+4. The `Procfile` will handle the deployment
+
+### What Happens During Deployment
+
+The `deploy.py` script automatically:
+1. **Installs dependencies** from `requirements.txt`
+2. **Crawls and indexes content** from popular programming sites:
+   - Python documentation and Wikipedia
+   - JavaScript, Machine Learning, Web Development topics
+   - Algorithm and Computer Science resources
+3. **Starts the web server** on the platform's assigned port
+4. **Provides search functionality** immediately after deployment
+
+### Local Development with Pre-populated Data
+
+```bash
+# Clone and setup
+git clone https://github.com/ShubhamPhapale/search-engine-proto.git
+cd search-engine-proto
+pip install -r requirements.txt
+
+# Initialize with sample data
+python deploy.py
+```
 
 ## Customization
 

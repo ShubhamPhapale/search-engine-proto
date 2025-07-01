@@ -3,10 +3,8 @@ services:
     name: pysearch
     env: python
     plan: free
-    buildCommand: |
-      pip install -r requirements.txt
-      python main.py crawl --url https://en.wikipedia.org/wiki/Python_(programming_language) --depth 2
-    startCommand: python main.py server --port $PORT --host 0.0.0.0
+    buildCommand: pip install -r requirements.txt
+    startCommand: python deploy.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.7
