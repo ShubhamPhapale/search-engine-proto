@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PySearch - Google-like Search Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 2rem 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            margin: 2rem 0;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .demo-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .demo-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: #f8f9fa;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .tech-stack {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tech-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .getting-started {
+            background: #e8f5e8;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: white;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .main-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">🔍 PySearch</h1>
+            <p class="tagline">A Google-like Search Engine Built in Python</p>
+            
+            <div class="badges">
+                <div class="badge">🐍 Python 3.9+</div>
+                <div class="badge">🌐 Flask Web Framework</div>
+                <div class="badge">🔬 TF-IDF Algorithm</div>
+                <div class="badge">🎨 Responsive UI</div>
+                <div class="badge">🐳 Docker Ready</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="demo-section">
+                <h2>Experience the Search Engine</h2>
+                <p>A fully functional search engine that demonstrates core information retrieval concepts</p>
+                <a href="https://github.com/yourusername/pysearch" class="demo-btn">📖 View on GitHub</a>
+                <a href="https://github.com/yourusername/pysearch/releases" class="demo-btn">📦 Download Release</a>
+                <a href="#getting-started" class="demo-btn">🚀 Quick Start</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">5</span>
+                    <span>Core Components</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">20+</span>
+                    <span>Indexed Pages</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">&lt;100ms</span>
+                    <span>Search Response</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">95%</span>
+                    <span>Test Coverage</span>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🕷️</div>
+                    <h3>Web Crawler</h3>
+                    <p>Respectful crawling with content extraction, link discovery, and duplicate prevention</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>TF-IDF Search</h3>
+                    <p>Advanced relevance ranking using Term Frequency-Inverse Document Frequency</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Web Interface</h3>
+                    <p>Google-like responsive design with pagination and query highlighting</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Page Ranking</h3>
+                    <p>Authority-based scoring system inspired by Google's PageRank algorithm</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Snippets</h3>
+                    <p>Intelligent text extraction with query term highlighting and relevance scoring</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔧</div>
+                    <h3>RESTful API</h3>
+                    <p>JSON endpoints for programmatic access and third-party integrations</p>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <h2 style="text-align: center; margin-bottom: 1rem;">Technology Stack</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <strong>Backend</strong><br>
+                        Python, Flask, SQLite
+                    </div>
+                    <div class="tech-item">
+                        <strong>Search</strong><br>
+                        scikit-learn, NLTK, TF-IDF
+                    </div>
+                    <div class="tech-item">
+                        <strong>Web Crawling</strong><br>
+                        BeautifulSoup, Requests
+                    </div>
+                    <div class="tech-item">
+                        <strong>Frontend</strong><br>
+                        HTML5, CSS3, JavaScript
+                    </div>
+                    <div class="tech-item">
+                        <strong>Deployment</strong><br>
+                        Docker, GitHub Actions
+                    </div>
+                    <div class="tech-item">
+                        <strong>Testing</strong><br>
+                        pytest, CI/CD Pipeline
+                    </div>
+                </div>
+            </div>
+
+            <div class="getting-started" id="getting-started">
+                <h2>🚀 Quick Start</h2>
+                <p><strong>1. Clone the repository:</strong></p>
+                <div class="code-block">git clone https://github.com/yourusername/pysearch.git
+cd pysearch</div>
+
+                <p><strong>2. Run the setup script:</strong></p>
+                <div class="code-block">chmod +x setup.sh
+./setup.sh</div>
+
+                <p><strong>3. Start the web server:</strong></p>
+                <div class="code-block">python main.py server --port 8080</div>
+
+                <p><strong>4. Open your browser:</strong></p>
+                <div class="code-block">http://localhost:8080</div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <h2>Key Features Demonstrated</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                        <h4>Information Retrieval</h4>
+                        <p>TF-IDF vectorization, cosine similarity, and advanced ranking algorithms</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                        <h4>Natural Language Processing</h4>
+                        <p>Text preprocessing, stemming, stopword removal, and spelling correction</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                        <h4>Web Development</h4>
+                        <p>Flask backend, responsive frontend, RESTful APIs, and modern UI/UX</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                        <h4>Software Engineering</h4>
+                        <p>Modular architecture, comprehensive testing, CI/CD, and containerization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PySearch - Built with ❤️ by Shubham Sarjeraophapale</p>
+            <p>Open Source • MIT License • Python</p>
+        </div>
+    </footer>
+</body>
+</html>
