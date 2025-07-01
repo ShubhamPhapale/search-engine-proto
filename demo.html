@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PySearch Demo - Client-Side Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            color: #4285f4;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .demo-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            overflow: hidden;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-button {
+            padding: 15px 25px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #3367d6;
+        }
+        
+        .results {
+            margin-top: 20px;
+        }
+        
+        .result {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .result-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #1a0dab;
+        }
+        
+        .result-url {
+            color: #006621;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .result-snippet {
+            color: #545454;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🔍 PySearch Demo</div>
+            <p>Client-Side Search Demonstration</p>
+        </div>
+        
+        <div class="demo-notice">
+            <strong>Demo Mode:</strong> This is a client-side demonstration with sample data. 
+            For the full search engine experience, 
+            <a href="https://github.com/ShubhamPhapale/search-engine-proto">deploy the Python backend</a>.
+        </div>
+        
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search for Python, programming, algorithms..." id="searchInput">
+            <button class="search-button" onclick="performSearch()">Search</button>
+        </div>
+        
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        // Sample data for demonstration
+        const sampleData = [
+            {
+                title: "Python Programming Language",
+                url: "https://www.python.org/",
+                snippet: "Python is a high-level, interpreted programming language with dynamic semantics. Its high-level built-in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development."
+            },
+            {
+                title: "Learn Python - Official Tutorial",
+                url: "https://docs.python.org/3/tutorial/",
+                snippet: "This tutorial introduces the reader informally to the basic concepts and features of the Python language and system. It helps to have a Python interpreter handy for hands-on experience."
+            },
+            {
+                title: "Python Web Development with Flask",
+                url: "https://flask.palletsprojects.com/",
+                snippet: "Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications."
+            },
+            {
+                title: "Data Science with Python",
+                url: "https://pandas.pydata.org/",
+                snippet: "Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the NumPy package."
+            },
+            {
+                title: "Machine Learning in Python",
+                url: "https://scikit-learn.org/",
+                snippet: "Scikit-learn is a simple and efficient tool for predictive data analysis. It provides various classification, regression and clustering algorithms."
+            }
+        ];
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('results');
+            
+            if (!query.trim()) {
+                resultsDiv.innerHTML = '';
+                return;
+            }
+            
+            // Simple client-side search
+            const matches = sampleData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.snippet.toLowerCase().includes(query)
+            );
+            
+            if (matches.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="result">
+                        <div class="result-title">No results found</div>
+                        <div class="result-snippet">Try searching for: python, programming, flask, data science, or machine learning</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `<div style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                About ${matches.length} results (demo mode)
+            </div>`;
+            
+            matches.forEach(item => {
+                const highlightedTitle = highlightText(item.title, query);
+                const highlightedSnippet = highlightText(item.snippet, query);
+                
+                html += `
+                    <div class="result">
+                        <div class="result-title">
+                            <a href="${item.url}" target="_blank">${highlightedTitle}</a>
+                        </div>
+                        <div class="result-url">${item.url}</div>
+                        <div class="result-snippet">${highlightedSnippet}</div>
+                    </div>
+                `;
+            });
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+        
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
