@@ -46,16 +46,30 @@ class SearchEngine:
     
     def load_documents(self):
         """Load documents from database"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-        cursor.execute("SELECT url, title, content FROM pages")
-        results = cursor.fetchall()
-        conn.close()
-        
-        for url, title, content in results:
-            self.document_urls.append(url)
-            self.document_titles.append(title or "")
-            self.documents.append(content or "")
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            # Check if table exists
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='pages'")
+            if not cursor.fetchone():
+                print("No database found. Run crawler first to populate database.")
+                conn.close()
+                return
+            
+            cursor.execute("SELECT url, title, content FROM pages")
+            results = cursor.fetchall()
+            conn.close()
+            
+            for url, title, content in results:
+                self.document_urls.append(url)
+                self.document_titles.append(title or "")
+                self.documents.append(content or "")
+                
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        except Exception as e:
+            print(f"Error loading documents: {e}")
     
     def preprocess_text(self, text):
         """Clean and preprocess text"""

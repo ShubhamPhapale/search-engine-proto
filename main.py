@@ -29,6 +29,18 @@ def test_search_engine():
     
     engine = SearchEngine('database.db')
     
+    # Check if we have any documents to search
+    if not engine.documents:
+        print("No documents found in database. Running setup first...")
+        # Run setup to populate database
+        setup_demo()
+        # Reinitialize engine
+        engine = SearchEngine('database.db')
+        
+        if not engine.documents:
+            print("Still no documents found. Cannot run tests.")
+            return
+    
     test_queries = [
         "python programming",
         "web development",
