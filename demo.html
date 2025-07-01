@@ -125,7 +125,7 @@
         </div>
         
         <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search for Python, programming, algorithms..." id="searchInput">
+            <input type="text" class="search-input" placeholder="Try: python, javascript, machine learning, algorithms, react, database..." id="searchInput">
             <button class="search-button" onclick="performSearch()">Search</button>
         </div>
         
@@ -133,32 +133,192 @@
     </div>
 
     <script>
-        // Sample data for demonstration
+        // Comprehensive sample data for demonstration
         const sampleData = [
+            // Programming Languages
             {
                 title: "Python Programming Language",
                 url: "https://www.python.org/",
-                snippet: "Python is a high-level, interpreted programming language with dynamic semantics. Its high-level built-in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development."
+                snippet: "Python is a high-level, interpreted programming language with dynamic semantics. Object-oriented programming and elegant syntax make it ideal for scripting and rapid application development."
             },
             {
-                title: "Learn Python - Official Tutorial",
-                url: "https://docs.python.org/3/tutorial/",
-                snippet: "This tutorial introduces the reader informally to the basic concepts and features of the Python language and system. It helps to have a Python interpreter handy for hands-on experience."
+                title: "JavaScript - The Language of the Web",
+                url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+                snippet: "JavaScript is a programming language that enables interactive web pages and is an essential part of web applications. It's a prototype-based, multi-paradigm, single-threaded, dynamic language."
             },
             {
-                title: "Python Web Development with Flask",
+                title: "Java Programming Platform",
+                url: "https://www.oracle.com/java/",
+                snippet: "Java is a high-level, class-based, object-oriented programming language designed for platform independence. Write once, run anywhere capabilities make it popular for enterprise development."
+            },
+            {
+                title: "C++ Programming Language",
+                url: "https://isocpp.org/",
+                snippet: "C++ is a general-purpose programming language created as an extension of C. It supports procedural, object-oriented, and generic programming paradigms with low-level memory manipulation."
+            },
+            
+            // Web Development
+            {
+                title: "React - JavaScript Library for Building User Interfaces",
+                url: "https://reactjs.org/",
+                snippet: "React is a declarative, efficient, and flexible JavaScript library for building user interfaces. It lets you compose complex UIs from small isolated pieces of code called components."
+            },
+            {
+                title: "Node.js - JavaScript Runtime",
+                url: "https://nodejs.org/",
+                snippet: "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It enables server-side JavaScript development with event-driven, non-blocking I/O model."
+            },
+            {
+                title: "Flask Web Framework for Python",
                 url: "https://flask.palletsprojects.com/",
-                snippet: "Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications."
+                snippet: "Flask is a lightweight WSGI web application framework in Python. It's designed to make getting started quick and easy, with the ability to scale up to complex applications."
             },
             {
-                title: "Data Science with Python",
-                url: "https://pandas.pydata.org/",
-                snippet: "Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the NumPy package."
+                title: "Django - High-level Python Web Framework",
+                url: "https://www.djangoproject.com/",
+                snippet: "Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It follows the model-template-views architectural pattern."
             },
             {
-                title: "Machine Learning in Python",
+                title: "HTML5 - Modern Web Markup",
+                url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+                snippet: "HTML5 is the latest evolution of the standard that defines HTML. It includes new elements, attributes, and behaviors for modern web development with multimedia and graphics support."
+            },
+            {
+                title: "CSS3 - Cascading Style Sheets",
+                url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+                snippet: "CSS3 is the latest standard for CSS. It introduces many new features including rounded corners, shadows, gradients, transitions, animations, and flexible box layouts."
+            },
+            
+            // Data Science & AI
+            {
+                title: "Machine Learning with Python",
                 url: "https://scikit-learn.org/",
-                snippet: "Scikit-learn is a simple and efficient tool for predictive data analysis. It provides various classification, regression and clustering algorithms."
+                snippet: "Scikit-learn is a machine learning library for Python. It features various classification, regression and clustering algorithms including support vector machines, random forests, and neural networks."
+            },
+            {
+                title: "Pandas - Python Data Analysis Library",
+                url: "https://pandas.pydata.org/",
+                snippet: "Pandas is a powerful data analysis and manipulation tool for Python. It provides data structures and operations for manipulating numerical tables and time series data."
+            },
+            {
+                title: "NumPy - Numerical Computing in Python",
+                url: "https://numpy.org/",
+                snippet: "NumPy is the fundamental package for scientific computing with Python. It provides support for large, multi-dimensional arrays and matrices, along with mathematical functions."
+            },
+            {
+                title: "TensorFlow - Machine Learning Platform",
+                url: "https://www.tensorflow.org/",
+                snippet: "TensorFlow is an end-to-end open source platform for machine learning. It has comprehensive ecosystem of tools, libraries and community resources for AI development."
+            },
+            {
+                title: "Artificial Intelligence and Deep Learning",
+                url: "https://pytorch.org/",
+                snippet: "PyTorch is an open source machine learning framework that accelerates the path from research prototyping to production deployment with dynamic neural networks."
+            },
+            
+            // Algorithms & Computer Science
+            {
+                title: "Sorting Algorithms - Computer Science Fundamentals",
+                url: "https://en.wikipedia.org/wiki/Sorting_algorithm",
+                snippet: "Sorting algorithms are methods for reorganizing a large number of items into a specific order. Common algorithms include quicksort, mergesort, heapsort, and bubble sort."
+            },
+            {
+                title: "Data Structures - Arrays, Lists, Trees",
+                url: "https://en.wikipedia.org/wiki/Data_structure",
+                snippet: "Data structures are ways of organizing and storing data in computers. They include arrays, linked lists, stacks, queues, trees, graphs, and hash tables for efficient access."
+            },
+            {
+                title: "Big O Notation - Algorithm Complexity",
+                url: "https://en.wikipedia.org/wiki/Big_O_notation",
+                snippet: "Big O notation describes the performance or complexity of an algorithm. It specifically describes the worst-case scenario and helps compare algorithm efficiency."
+            },
+            {
+                title: "Graph Algorithms - Network Analysis",
+                url: "https://en.wikipedia.org/wiki/Graph_theory",
+                snippet: "Graph algorithms solve problems related to graph data structures. They include shortest path algorithms like Dijkstra's, traversal methods like DFS and BFS."
+            },
+            {
+                title: "Binary Search Trees - Efficient Data Organization",
+                url: "https://en.wikipedia.org/wiki/Binary_search_tree",
+                snippet: "Binary search trees are node-based data structures where each node has at most two children. They provide efficient searching, insertion, and deletion operations."
+            },
+            
+            // Software Development
+            {
+                title: "Git Version Control System",
+                url: "https://git-scm.com/",
+                snippet: "Git is a distributed version control system for tracking changes in source code during software development. It's designed for speed, data integrity, and distributed workflows."
+            },
+            {
+                title: "GitHub - Code Collaboration Platform",
+                url: "https://github.com/",
+                snippet: "GitHub is a web-based Git repository hosting service. It offers distributed version control, source code management, bug tracking, and collaboration features."
+            },
+            {
+                title: "Docker - Application Containerization",
+                url: "https://www.docker.com/",
+                snippet: "Docker is a platform for developing, shipping, and running applications using containerization. It packages applications and dependencies into lightweight containers."
+            },
+            {
+                title: "API Design and RESTful Services",
+                url: "https://restfulapi.net/",
+                snippet: "REST (Representational State Transfer) is an architectural style for designing networked applications. RESTful APIs use HTTP methods and are stateless, scalable, and cacheable."
+            },
+            {
+                title: "Software Testing and Quality Assurance",
+                url: "https://en.wikipedia.org/wiki/Software_testing",
+                snippet: "Software testing is the process of evaluating and verifying software applications work as expected. It includes unit testing, integration testing, and end-to-end testing."
+            },
+            
+            // Databases
+            {
+                title: "SQL Database Management",
+                url: "https://www.w3schools.com/sql/",
+                snippet: "SQL (Structured Query Language) is a standard language for storing, manipulating and retrieving data in relational databases. It includes commands for querying and updating data."
+            },
+            {
+                title: "MongoDB - NoSQL Document Database",
+                url: "https://www.mongodb.com/",
+                snippet: "MongoDB is a document-oriented NoSQL database program. It uses JSON-like documents with optional schemas and is designed for scalability and developer productivity."
+            },
+            {
+                title: "PostgreSQL - Advanced Open Source Database",
+                url: "https://www.postgresql.org/",
+                snippet: "PostgreSQL is a powerful, open source object-relational database system with strong reputation for reliability, feature robustness, and performance."
+            },
+            
+            // Mobile Development
+            {
+                title: "React Native - Cross-Platform Mobile Development",
+                url: "https://reactnative.dev/",
+                snippet: "React Native lets you build mobile apps using React. It combines the best parts of native development with React, a best-in-class JavaScript library for user interfaces."
+            },
+            {
+                title: "Flutter - Google's UI Toolkit",
+                url: "https://flutter.dev/",
+                snippet: "Flutter is Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase using the Dart programming language."
+            },
+            {
+                title: "Swift Programming for iOS Development",
+                url: "https://developer.apple.com/swift/",
+                snippet: "Swift is a powerful and intuitive programming language for macOS, iOS, watchOS, tvOS and beyond. It's designed to give developers the freedom to create incredible apps."
+            },
+            
+            // Cloud & DevOps
+            {
+                title: "Amazon Web Services (AWS) Cloud Platform",
+                url: "https://aws.amazon.com/",
+                snippet: "AWS is a comprehensive cloud computing platform offering compute power, database storage, content delivery and other services to help businesses scale and grow."
+            },
+            {
+                title: "Kubernetes - Container Orchestration",
+                url: "https://kubernetes.io/",
+                snippet: "Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers into logical units."
+            },
+            {
+                title: "CI/CD - Continuous Integration and Deployment",
+                url: "https://en.wikipedia.org/wiki/CI/CD",
+                snippet: "CI/CD refers to the combined practices of continuous integration and continuous deployment. It enables frequent code changes to be delivered to production safely."
             }
         ];
 
@@ -181,7 +341,7 @@
                 resultsDiv.innerHTML = `
                     <div class="result">
                         <div class="result-title">No results found</div>
-                        <div class="result-snippet">Try searching for: python, programming, flask, data science, or machine learning</div>
+                        <div class="result-snippet">Try searching for: python, javascript, react, machine learning, algorithms, database, git, docker, api, mobile, cloud, or any programming topic!</div>
                     </div>
                 `;
                 return;
